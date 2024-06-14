@@ -53,7 +53,7 @@ export default function Login() {
                         <div>
                             <input ref={passwordRef} type='password' placeholder='Password' className='inputField' required />
                         </div>
-                        <button type='submit' className='btn class-title'>Login</button>
+                        <Link  to="/login" className='btn class-title'>Login</Link>
                     </form>
                 </div>
             </div>

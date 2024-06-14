@@ -15,6 +15,7 @@ import Login from './Componentes/Login';
 import SignUp from './Componentes/SignUp';
 import About from './Componentes/About';
 import usercontext from './Store/Usercontext';
+import Sidebar from './Componentes/Sidebar';
 
 
 
@@ -29,11 +30,11 @@ function App() {
 
       <Routes>
         
-        < Route exact path="/" element={<Home/>} />
+        < Route exact path="/" element={<Login/>} />
         < Route exact path="/responseform" element={<ResponseForm/>} />
-        < Route exact path="/header" element={<Header/>} />
-        < Route exact path="/login" element={<Login/>} />
+        < Route exact path="/login" element={<Home/>} />
         < Route exact path="/about" element={<About/>} />
+        < Route exact path="/sidebar" element={<Sidebar/>} />
         
         </Routes>
 
