@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState  } from 'react';
 import { Link } from 'react-router-dom';
 import image from '../user.png'; 
 
-const Header = () => {
+const Header = ({user,handleLogout}) => {
   const [profileImage, setProfileImage] = useState(image); 
-
+  
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -30,12 +30,12 @@ const Header = () => {
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li><Link to="/" className="nav-link px-2 link-secondary">Home</Link></li>
           <li><Link to="/features" className="nav-link px-2">Features</Link></li>
-          <li><Link to="/pricing" className="nav-link px-2">Pricing</Link></li>
+         
           <li><Link to="/faqs" className="nav-link px-2">FAQs</Link></li>
           <li><Link to="/about" className="nav-link px-2">About</Link></li>
         </ul>
 
-        <div className="col-md-3 m-3 text-center">
+       {  user.exists===1?<div className="col-md-3 m-3 text-center">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 profile-menu">
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,16 +45,20 @@ const Header = () => {
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
+                <label className="dropdown-item ">
+                      {user.email}
+                  </label>
                   <label className="dropdown-item ">
                     Change Profile Picture
                     <input type="file" onChange={handleImageChange} style={{ display: 'none' }} />
                   </label>
                 </li>
-                <li><Link className="dropdown-item" to="/">Logout</Link></li>
+                <li><div  onClick={handleLogout} className="dropdown-item" to="/Login">Logout</div></li>
               </ul>
             </li>
           </ul>
-        </div>
+        </div> : <Link to="/Login" className='btn class-title'>Login</Link>
+         }
       </header>
     </div>
   );

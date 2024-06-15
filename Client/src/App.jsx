@@ -1,47 +1,56 @@
-import { useContext, useState } from 'react'
-
-import "bootstrap/dist/css/bootstrap.min.css"
+import React, { useState } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
-import ResponseForm from './Componentes/ResponseForm'
-import { 
-  BrowserRouter as Router ,
-   Routes, 
-   Route
-   
-   } from "react-router-dom";
-   import Home from './screens/Home';
-import Header from './Componentes/Header';
+import { BrowserRouter as Router, Routes, Route ,useNavigate } from "react-router-dom";
 import Login from './Componentes/Login';
-import SignUp from './Componentes/SignUp';
 import About from './Componentes/About';
-import usercontext from './Store/Usercontext';
-import Sidebar from './Componentes/Sidebar';
-
-
+import Layout from './Routes/Layout'; // Import the layout component
+import DisplayTask from "./Componentes/DisplayTask";
 
 function App() {
-  const user=useContext(usercontext);
-  
+    const [user, setUser] = useState({ exists: 0, email: "" });
 
- return (
-  <usercontext.Provider value={user}>
-    <Router>
-      <div>
-
-      <Routes>
+    const handleLogin = (users) => {
         
-        < Route exact path="/" element={<Login/>} />
-        < Route exact path="/responseform" element={<ResponseForm/>} />
-        < Route exact path="/login" element={<Home/>} />
-        < Route exact path="/about" element={<About/>} />
-        < Route exact path="/sidebar" element={<Sidebar/>} />
-        
-        </Routes>
+        setUser(users); // Update the state with the new user information
+    };
 
-        </div>
-    </Router>
-    </usercontext.Provider>
-  );
+    const handleLogout = () => {
+        const out = { exists: 0, email: "" };
+        setUser(out);
+    };
+
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={
+                    <Layout user={user} handleLogout={handleLogout}>
+                        {user.exists === 0 
+                            ? <LoginWrapper handleLogin={handleLogin} /> 
+                            : <DisplayTask />
+                        }
+                    </Layout>
+                } />
+                <Route path="/login" element={<LoginWrapper handleLogin={handleLogin} />} />
+            </Routes>
+        </Router>
+    );
 }
 
-export default App
+function LoginWrapper({ handleLogin }) {
+    const navigate = useNavigate();
+
+    const handleLoginAndNavigate = (user) => {
+        handleLogin(user);
+        if (user.exists) {
+            navigate("/");
+        }
+        else{
+          
+        }
+    };
+
+    return <Login handleLogin={handleLoginAndNavigate} />;
+}
+
+export default App;
