@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
-import { BrowserRouter as Router, Routes, Route ,useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Login from './Componentes/Login';
 import About from './Componentes/About';
-import Layout from './Routes/Layout'; // Import the layout component
+import Layout from './Routes/Layout';
 import DisplayTask from "./Componentes/DisplayTask";
+import DisplayStudents from './Componentes/DisplayStudents';
+import Students from './Componentes/Students';
 
 function App() {
     const [user, setUser] = useState({ exists: 0, email: "" });
 
     const handleLogin = (users) => {
-        
-        setUser(users); // Update the state with the new user information
+        setUser(users);
     };
 
     const handleLogout = () => {
@@ -32,6 +33,7 @@ function App() {
                     </Layout>
                 } />
                 <Route path="/login" element={<LoginWrapper handleLogin={handleLogin} />} />
+                <Route path="/list" element={<Students />} />
             </Routes>
         </Router>
     );
@@ -44,9 +46,6 @@ function LoginWrapper({ handleLogin }) {
         handleLogin(user);
         if (user.exists) {
             navigate("/");
-        }
-        else{
-          
         }
     };
 
