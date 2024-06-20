@@ -1,37 +1,54 @@
-
 .containerA {
-    width: 100%;
-    
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f4f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .headingA {
-    background-color: #1FF2E1;
+    background-color: #1ff2e1;
     font-size: 35px;
     font-weight: bold;
     text-align: center;
-    padding: 6px;
+    padding: 10px;
+    border-radius: 10px;
     margin-bottom: 20px;
-
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .list {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 .itemContainer {
     display: flex;
     align-items: center;
-    background-color: #f9f9f9;
-    border-bottom: 1px solid black;
+    justify-content: space-between; /* Added to align button to the right */
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
     padding: 16px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.itemContainer.animate-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .image {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     margin-right: 16px;
+    border: 2px solid #1ff2e1;
 }
 
 .textContainer {
@@ -40,13 +57,27 @@
 }
 
 .boldText {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
-    color: black;
+    color: #333333;
 }
 
 .item {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
-    color: green;
+    color: #1ff2e1;
+}
+
+.assignButton {
+    background-color: #1ff2e1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.assignButton:hover {
+    background-color: #0ac2b0;
 }

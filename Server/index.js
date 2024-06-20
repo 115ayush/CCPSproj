@@ -22,11 +22,10 @@ app.use(express.urlencoded({ extended: true }));
 const userSchema = new mongoose.Schema({
   email: String,
   password: String,
+  isCoordi: Number,
 });
 
 const User = mongoose.model("User", userSchema);
-
-
 
 // Login Endpoint
 app.post('/login', async (req, res) => {
@@ -34,9 +33,9 @@ app.post('/login', async (req, res) => {
 
   try {
     const user = await User.findOne({ email, password });
-
+    //console.log(user);
     if (user) {
-      res.status(200).json({ exists: 1, data: { email: user.email } });
+      res.status(200).json({ exists: 1, data: { email: user.email, isCoordi: user.isCoordi } });
     } else {
       res.status(200).json({ exists: 0 });
     }

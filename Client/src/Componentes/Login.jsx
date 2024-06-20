@@ -16,23 +16,22 @@ export default function Login({ handleLogin }) {
             });
 
             const present = response.data.exists;
-            if(!present){
+            if (!present) {
                 alert("wrong credentials");
             }
+
             const user = {
                 exists: present ? 1 : 0, // Ensure 'exists' is set correctly
                 email: emailRef.current.value,
+                isCoordi: response.data.data ? response.data.data.isCoordi : 0
             };
 
-           
+            //console.log(user); // Check if isCoordi is present in the user object
+
             emailRef.current.value = "";
             passwordRef.current.value = "";
             // Call handleLogin to update parent component's state if needed
             handleLogin(user);
-
-            // Clear input fields
-            
-
         } catch (error) {
             console.error('There was an error!', error);
         }

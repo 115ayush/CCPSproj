@@ -1,0 +1,61 @@
+.task-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  animation: slide-in 0.5s ease-in-out; /* Apply slide-in animation */
+  animation-fill-mode: both;
+}
+
+@keyframes slide-in {
+  0% {
+      opacity: 0;
+      transform: translateY(-20px); /* Start off-screen */
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0); /* Slide in to normal position */
+  }
+}
+
+.task-card {
+  width: 18rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Light grey background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 10px;
+}
+
+.task-card:hover {
+  transform: translateY(-5px); /* Move card up on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #343a40; /* Dark text color */
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #6c757d; /* Medium grey text color */
+  margin-bottom: 1rem;
+}
+
+.btn-primary {
+  background-color: #1FF2E1; /* Button color */
+  border-color: #1FF2E1; /* Button border color */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #17d2c1; /* Darker shade on hover */
+  border-color: #17d2c1; /* Darker shade on hover */
+}
