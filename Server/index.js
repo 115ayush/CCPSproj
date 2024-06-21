@@ -24,8 +24,28 @@ const userSchema = new mongoose.Schema({
   password: String,
   isCoordi: Number,
 });
-
 const User = mongoose.model("User", userSchema);
+
+// Define Student Schema and Model
+const studentSchema = new mongoose.Schema({
+  name: String,
+  post: String,
+  Discipline: String,
+  email: String,
+  imageUrl: String
+});
+const Student = mongoose.model("Student", studentSchema);
+
+// Define Company Schema and Model
+const companySchema = new mongoose.Schema({
+  name: String,
+  hrname: String,
+  Description: String,
+  hremail: String,
+  memMail: String,
+  isContacted: Number,
+});
+const Companies = mongoose.model("Companies", companySchema);
 
 // Login Endpoint
 app.post('/login', async (req, res) => {
@@ -33,7 +53,6 @@ app.post('/login', async (req, res) => {
 
   try {
     const user = await User.findOne({ email, password });
-    //console.log(user);
     if (user) {
       res.status(200).json({ exists: 1, data: { email: user.email, isCoordi: user.isCoordi } });
     } else {
@@ -42,6 +61,28 @@ app.post('/login', async (req, res) => {
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ exists: 0 });
+  }
+});
+
+// Students Endpoint
+app.get('/students', async (req, res) => {
+  try {
+    const students = await Student.find();
+    res.status(200).json(students);
+  } catch (error) {
+    console.error('Error fetching students:', error);
+    res.status(500).json({ error: 'Failed to fetch students' });
+  }
+});
+
+// Companies Endpoint
+app.get('/companies', async (req, res) => {
+  try {
+    const companies = await Companies.find();
+    res.status(200).json(companies);
+  } catch (error) {
+    console.error('Error fetching companies:', error);
+    res.status(500).json({ error: 'Failed to fetch companies' });
   }
 });
 

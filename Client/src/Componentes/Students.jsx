@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import DisplayStudents from './DisplayStudents';
-import userImage from '../user.png'; 
-
-const users = [
-    { name: "Mohit Thakre", post: "Volunteer (Internship Cell)", Discipline: "CSE Discipline", imageUrl: userImage },
-    { name: "Varun Rao", post: "Volunteer (DSAI Liasoning)", Discipline: "CSE Discipline", imageUrl: userImage },
-    { name: "Anil Kumar", post: "Volunteer (MT Liasoning)", Discipline: "CSE Discipline", imageUrl: userImage },
-    { name: "Mohit Thakre", post: "Volunteer (Internship Cell)", Discipline: "CSE Discipline", imageUrl: userImage },
-    { name: "Varun Rao", post: "Volunteer (DSAI Liasoning)", Discipline: "CSE Discipline", imageUrl: userImage },
-    { name: "Anil Kumar", post: "Volunteer (MT Liasoning)", Discipline: "CSE Discipline", imageUrl: userImage },
-    { name: "Mohit Thakre", post: "Volunteer (MT Liasoning)", Discipline: "CSE Discipline", imageUrl: userImage },
-];
+import imgurlfrom from "../user.png"; // Correct import statement
 
 function Students() {
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        const fetchStudents = async () => {
+            try {
+                const response = await axios.get('http://localhost:4001/students');
+                const studentsWithImages = response.data.map((item) => ({
+                    ...item,
+                    imageUrl: imgurlfrom // Assign the image URL
+                }));
+                setUsers(studentsWithImages);
+            } catch (error) {
+                console.error('Error fetching students:', error);
+            }
+        };
+
+        fetchStudents();
+    }, []);
+
     return (
         <div>
             <DisplayStudents users={users} />
