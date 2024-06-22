@@ -3,7 +3,7 @@ import axios from 'axios';
 import Task from './Task';
 import './Task.css';
 
-const DisplayTask = () => {
+const DisplayTask = ({ user }) => {
   const [companies, setCompanies] = useState([]);
 
   useEffect(() => {
@@ -19,9 +19,11 @@ const DisplayTask = () => {
     fetchCompanies();
   }, []);
 
+  const filteredCompanies = companies.filter(company => company.memMail === user.email);
+
   return (
     <div className="task-list">
-      {companies.map((company, index) => (
+      {filteredCompanies.map((company, index) => (
         <Task key={index} company={company} />
       ))}
     </div>

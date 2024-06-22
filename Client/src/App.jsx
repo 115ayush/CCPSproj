@@ -26,7 +26,7 @@ function App() {
                     <Layout user={user} handleLogout={handleLogout}>
                         {user.exists === 0 
                             ? <LoginWrapper handleLogin={handleLogin} /> 
-                            : (user.isCoordi === 1 ? <Students /> : <DisplayTask />)
+                            : (user.isCoordi === 1 ? <Students /> : <DisplayTask  user={user} />)
                         }
                     </Layout>
                 } />
