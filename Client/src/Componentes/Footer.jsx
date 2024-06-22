@@ -1,22 +1,26 @@
-const Footer=()=>{
-  return <>
-  <div className="container">
-  <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <div className="col-md-4 d-flex align-items-center">
-      <a href="/" className="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-        <svg className="bi" width="30" height="24"><use xlinkHref="#bootstrap"></use></svg>
-      </a>
-      <span className="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
-    </div>
+import React from 'react';
+import './Footer.css'; // Import the new CSS file
 
-    <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
-      <li className="ms-3"><a className="text-body-secondary" href="#"><svg className="bi" width="24" height="24"><use xlinkHref="#twitter"></use></svg></a></li>
-      <li className="ms-3"><a className="text-body-secondary" href="#"><svg className="bi" width="24" height="24"><use xlinkHref="#instagram"></use></svg></a></li>
-      <li className="ms-3"><a className="text-body-secondary" href="#"><svg className="bi" width="24" height="24"><use xlinkHref="#facebook"></use></svg></a></li>
-    </ul>
-  </footer>
-</div>
-  
-  </>
+const Footer = () => {
+  return (
+    <div className="footer-container">
+      <footer className="footer">
+        <div className="footer-logo">
+          <a href="/" className="logo-link">
+            <svg className="bi" width="30" height="24" role="img" aria-label="Bootstrap">
+              <use xlinkHref="#bootstrap"></use>
+            </svg>
+          </a>
+          <span className="footer-text">© 2024 Company, Inc</span>
+        </div>
+        <ul className="footer-socials">
+          <li><a href="#"><svg className="bi" width="24" height="24"><use xlinkHref="#twitter"></use></svg></a></li>
+          <li><a href="#"><svg className="bi" width="24" height="24"><use xlinkHref="#instagram"></use></svg></a></li>
+          <li><a href="#"><svg className="bi" width="24" height="24"><use xlinkHref="#facebook"></use></svg></a></li>
+        </ul>
+      </footer>
+    </div>
+  );
 }
+
 export default Footer;

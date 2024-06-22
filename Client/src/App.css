@@ -1,3 +1,110 @@
-.indicard{
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5; /* Light grey background */
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header, footer {
+  background-color: #343a40; /* Dark background color */
+  color: #fff;
+}
+
+header a, footer a {
+  color: #1FF2E1; /* Light blue link color */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+header a:hover, footer a:hover {
+  color: #17d2c1; /* Darker shade on hover */
+}
+
+.navbar {
+  padding: 10px 0;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: #1FF2E1;
+}
+
+.profile-menu .dropdown-menu {
+  background-color: #343a40;
+  border: none;
+}
+
+.profile-menu .dropdown-item {
+  color: #fff;
+  transition: background-color 0.3s;
+}
+
+.profile-menu .dropdown-item:hover {
+  background-color: #1FF2E1;
+  color: #343a40;
+}
+
+.profile-pic img {
+  border: 2px solid #1FF2E1;
+  padding: 2px;
+}
+
+.btn-primary {
+  background-color: #1FF2E1;
+  border-color: #1FF2E1;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #17d2c1;
+  border-color: #17d2c1;
+}
+
+footer {
+  padding: 20px 0;
+}
+
+footer .footer-socials a {
+  color: #fff;
+  transition: color 0.3s;
+}
+
+footer .footer-socials a:hover {
+  color: #1FF2E1;
+}
+
+.indicard {
   margin: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.indicard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #666;
 }

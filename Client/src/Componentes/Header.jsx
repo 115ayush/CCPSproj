@@ -1,10 +1,11 @@
-import React, { useState  } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import image from '../user.png'; 
+import image from '../user.png';
+import './Header.css'; // Import the new CSS file
 
-const Header = ({user,handleLogout}) => {
-  const [profileImage, setProfileImage] = useState(image); 
-  
+const Header = ({ user, handleLogout }) => {
+  const [profileImage, setProfileImage] = useState(image);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -17,48 +18,50 @@ const Header = ({user,handleLogout}) => {
   };
 
   return (
-    <div className="container">
-      <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <div className="col-md-3 mb-2 mb-md-0">
-          <Link to="/" className="d-inline-flex link-body-emphasis text-decoration-none">
+    <div className="header-container">
+      <header className="header">
+        <div className="header-logo">
+          <Link to="/" className="logo-link">
             <svg className="bi" width="40" height="32" role="img" aria-label="Bootstrap">
               <use xlinkHref="#bootstrap"></use>
             </svg>
           </Link>
         </div>
 
-        <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          <li><Link to="/" className="nav-link px-2 link-secondary">Home</Link></li>
-          <li><Link to="/features" className="nav-link px-2">Features</Link></li>
-         
-          <li><Link to="/faqs" className="nav-link px-2">FAQs</Link></li>
-          <li><Link to="/about" className="nav-link px-2">About</Link></li>
-        </ul>
+        <nav className="header-nav">
+          <ul className="nav-list">
+            <li><Link to="/" className="nav-link">Home</Link></li>
+            <li><Link to="/features" className="nav-link">Features</Link></li>
+            <li><Link to="/faqs" className="nav-link">FAQs</Link></li>
+            <li><Link to="/about" className="nav-link">About</Link></li>
+          </ul>
+        </nav>
 
-       {  user.exists===1?<div className="col-md-3 m-3 text-center">
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0 profile-menu">
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <div className="profile-pic">
-                  <img src={profileImage} alt="Profile Picture" className="rounded-circle" width="40" height="40"  />
-                </div>
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div className="header-profile">
+          {user.exists === 1 ? (
+            <div className="profile-dropdown">
+              <div className="profile-pic">
+                <img src={profileImage} alt="Profile" className="rounded-circle" width="40" height="40" />
+              </div>
+              <ul className="dropdown-menu">
                 <li>
-                <label className="dropdown-item ">
-                      {user.email}
+                  <label className="dropdown-item">
+                    {user.email}
                   </label>
-                  <label className="dropdown-item ">
+                  <label className="dropdown-item change-pic-label">
                     Change Profile Picture
-                    <input type="file" onChange={handleImageChange} style={{ display: 'none' }} />
+                    <input type="file" onChange={handleImageChange} className="change-pic-input" />
                   </label>
                 </li>
-                <li><div  onClick={handleLogout} className="dropdown-item" to="/Login">Logout</div></li>
+                <li>
+                  <div onClick={handleLogout} className="dropdown-item logout-link">Logout</div>
+                </li>
               </ul>
-            </li>
-          </ul>
-        </div> : <Link to="/Login" className='btn class-title'>Login</Link>
-         }
+            </div>
+          ) : (
+            <Link to="/Login" className="login-button">Login</Link>
+          )}
+        </div>
       </header>
     </div>
   );
