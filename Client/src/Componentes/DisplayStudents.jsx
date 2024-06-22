@@ -3,19 +3,30 @@ import './DisplayStudents.css';
 
 export default function DisplayStudents({ users }) {
     const [isLoaded, setIsLoaded] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
-    // UseEffect to trigger animation after component is loaded
     useEffect(() => {
         setIsLoaded(true);
     }, []);
 
+    const filteredUsers = users.filter(user =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="containerA">
-            <div>
+            <div className="headerA">
                 <h2 className="headingA">Student Placement Team</h2>
+                <input
+                    type="text"
+                    placeholder="Search by name"
+                    className="searchInput"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
             </div>
             <div className="list">
-                {users.map((user, index) => (
+                {filteredUsers.map((user, index) => (
                     <StudentCard key={index} user={user} index={index} isLoaded={isLoaded} />
                 ))}
             </div>
@@ -30,7 +41,7 @@ function StudentCard({ user, index, isLoaded }) {
         if (isLoaded) {
             setTimeout(() => {
                 setAnimationClass('animate-in');
-            }, index * 100); // Adjust timing here
+            }, index * 100);
         }
     }, [isLoaded, index]);
 
