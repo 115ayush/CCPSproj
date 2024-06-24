@@ -1,51 +1,25 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const multer = require("multer");
+const xlsx = require("xlsx");
+const connectDB = require("./db");
 
 const app = express();
 const port = 4001;
 
-// MongoDB URI
-const URI = "mongodb://localhost:27017/ccpsdb";
-
 // Connect to MongoDB
-mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error("MongoDB connection error:", err));
+connectDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Define User Schema and Model
-const userSchema = new mongoose.Schema({
-  email: String,
-  password: String,
-  isCoordi: Number,
-});
-const User = mongoose.model("User", userSchema);
-
-// Define Student Schema and Model
-const studentSchema = new mongoose.Schema({
-  name: String,
-  post: String,
-  Discipline: String,
-  email: String,
-  imageUrl: String
-});
-const Student = mongoose.model("Student", studentSchema);
-
-// Define Company Schema and Model
-const companySchema = new mongoose.Schema({
-  name: String,
-  hrname: String,
-  Description: String,
-  hremail: String,
-  memMail: String,
-  isContacted: Number,
-});
-const Companies = mongoose.model("Companies", companySchema);
+// Import Models
+const User = require('./models/User');
+const Student = require('./models/Student');
+const Company = require('./models/Company');
 
 // Login Endpoint
 app.post('/login', async (req, res) => {
@@ -78,11 +52,56 @@ app.get('/students', async (req, res) => {
 // Companies Endpoint
 app.get('/companies', async (req, res) => {
   try {
-    const companies = await Companies.find();
+    const companies = await Company.find();
     res.status(200).json(companies);
   } catch (error) {
     console.error('Error fetching companies:', error);
     res.status(500).json({ error: 'Failed to fetch companies' });
+  }
+});
+
+// Configure Multer for file upload (using in-memory storage)
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+// Upload Endpoint
+app.post('/upload', upload.single('file'), async (req, res) => {
+  try {
+    const file = req.file;
+    if (!file) {
+      console.error('No file uploaded');
+      return res.status(400).send("No file uploaded.");
+    }
+
+    // Read the file buffer
+    const workbook = xlsx.read(file.buffer, { type: 'buffer' });
+
+    const sheetName = workbook.SheetNames[0];
+   
+
+    const worksheet = workbook.Sheets[sheetName];
+   
+
+    const data = xlsx.utils.sheet_to_json(worksheet);
+    console.log(`Data from Excel file: ${JSON.stringify(data, null, 2)}`);
+
+    for (const row of data) {
+      const company = new Company({
+        name: row.name,
+        hrname: row.hrname,
+        Description: row.Description,
+        hrEmail: row.hrEmail, // Ensure this matches hrEmail from Excel
+        memMail: row.memMail,
+        isContacted: row.isContacted
+      });
+
+      await company.save();
+    }
+
+    res.status(200).send("File uploaded and data processed successfully.");
+  } catch (error) {
+    console.error('Error uploading and processing file:', error);
+    res.status(500).send("An error occurred while processing the file.");
   }
 });
 

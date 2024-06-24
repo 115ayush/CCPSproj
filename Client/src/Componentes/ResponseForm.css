@@ -1,10 +1,12 @@
 
-.rbox1{
+.background {
     display: flex;
     height: 100vh;
 
     justify-content: center;
     align-items: center;
+
+    background-image: url('../bg.jpg'); 
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0; 
@@ -14,14 +16,12 @@
     color: red;
   }
   
-  .rbox2 {
+  .box1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    padding: 40px;
-    margin-left: 50px;
+    padding: 20px;
     background-color: blanchedalmond;
 
     border: 1px solid black; 
@@ -34,9 +34,5 @@
   }
   input{
     border-radius: 3px;
-  }
-
-  .icon-container{
-    text-align: right;
   }
   
