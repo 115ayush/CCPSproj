@@ -1,9 +1,13 @@
+// DisplayStudents.jsx
+
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './DisplayStudents.css';
 
 export default function DisplayStudents({ users }) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         setIsLoaded(true);
@@ -12,6 +16,10 @@ export default function DisplayStudents({ users }) {
     const filteredUsers = users.filter(user =>
         user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const handleAssignClick = (email) => {
+        navigate(`/assign`, { state: { memMail: email } });
+    };
 
     return (
         <div className="containerA">
@@ -27,14 +35,14 @@ export default function DisplayStudents({ users }) {
             </div>
             <div className="list">
                 {filteredUsers.map((user, index) => (
-                    <StudentCard key={index} user={user} index={index} isLoaded={isLoaded} />
+                    <StudentCard key={index} user={user} index={index} isLoaded={isLoaded} onAssignClick={handleAssignClick} />
                 ))}
             </div>
         </div>
     );
 }
 
-function StudentCard({ user, index, isLoaded }) {
+function StudentCard({ user, index, isLoaded, onAssignClick }) {
     const [animationClass, setAnimationClass] = useState('');
 
     useEffect(() => {
@@ -53,7 +61,7 @@ function StudentCard({ user, index, isLoaded }) {
                 <div className="item">{user.post}</div>
                 <div className="item">{user.Discipline}</div>
             </div>
-            <button className="assignButton">Assign Companies</button>
+            <button className="assignButton" onClick={() => onAssignClick(user.email)}>Assign Companies</button>
         </div>
     );
 }

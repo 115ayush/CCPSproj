@@ -1,8 +1,10 @@
 import React from 'react';
-import './Task.css'; // Import Task.css for styling
+import './Task.css';
 import { Link } from 'react-router-dom';
 
-const Task = ({ company }) => {
+const Task = ({ company,user }) => {
+   // console.log("Task component company:", company); // Debug log
+
     return (
         <div className="task-container">
             <div className="task-card">
@@ -11,7 +13,11 @@ const Task = ({ company }) => {
                     <p className="card-text">HR Name: {company.hrname}</p>
                     <p className="card-text">Description: {company.Description}</p>
                     <p className="card-text">HR Email: {company.hremail}</p>
-                    <Link to="/responseform" className="btn btn-primary">
+                    <Link 
+                        to="/responseform" 
+                        state={{ company: company , user:user}}
+                        className="btn btn-primary"
+                    >
                         Submit Response
                     </Link>
                 </div>

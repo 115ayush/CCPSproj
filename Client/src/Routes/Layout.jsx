@@ -1,11 +1,21 @@
+import React from "react";
 import Header from "../Componentes/Header";
 import Footer from "../Componentes/Footer";
+import Sidebar from "../Componentes/Sidebar";
+import "./Layout.css";
 
-const Layout = ({ children,user,handleLogout }) => {
+
+const Layout = ({ children, user, handleLogout }) => {
   return (
     <>
-      <Header user={user} handleLogout={handleLogout}/>
-      <div>{children}</div>
+      <Header user={user} handleLogout={handleLogout} />
+      <div className="layout-container">
+        
+        
+          {children}
+         
+       
+      </div>
       <Footer />
     </>
   );

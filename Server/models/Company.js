@@ -5,7 +5,7 @@ const companySchema = new Schema({
   name: String,
   hrname: String,
   Description: String,
-  hrEmail: String, // Adjusted to match hrEmail from Excel
+  hremail: String, // Adjusted to match hrEmail from Excel
   memMail: String,
   isContacted: Boolean
 });

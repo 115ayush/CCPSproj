@@ -1,38 +1,103 @@
+.response-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+}
 
-.background {
-    display: flex;
-    height: 100vh;
+.form-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
 
-    justify-content: center;
-    align-items: center;
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
 
-    background-image: url('../bg.jpg'); 
-    background-size: cover;
-    background-repeat: no-repeat;
-    margin: 0; 
-  }
-  
-  .Name {
-    color: red;
-  }
-  
-  .box1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: blanchedalmond;
+.form-group {
+  margin-bottom: 1rem;
+}
 
-    border: 1px solid black; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    border-radius: 5px;
-  }
-  
-  .c2 {
-    width: 100%; 
-  }
-  input{
-    border-radius: 3px;
-  }
-  
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #555;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.home-link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
+.response-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Changed from center to flex-start */
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  padding-top: 2rem; /* Added padding to the top */
+}
+
+.form-card {
+  background-color: #ffffff; /* Explicit white background */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin-top: 2rem; /* Added margin to the top */
+  border: 1px solid #e0e0e0; /* Added a subtle border */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  padding-top: 1rem; /* Added padding to the top of the heading */
+}

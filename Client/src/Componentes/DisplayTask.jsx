@@ -24,7 +24,7 @@ const DisplayTask = ({ user }) => {
   return (
     <div className="task-list">
       {filteredCompanies.map((company, index) => (
-        <Task key={index} company={company} />
+        <Task key={index} company={company} user={user} />
       ))}
     </div>
   );

@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 const User = require('./models/User');
 const Student = require('./models/Student');
 const Company = require('./models/Company');
+const Response = require('./models/Response');
 
 // Login Endpoint
 app.post('/login', async (req, res) => {
@@ -52,7 +53,7 @@ app.get('/students', async (req, res) => {
 // Companies Endpoint
 app.get('/companies', async (req, res) => {
   try {
-    const companies = await Company.find();
+    const companies = await Company.find({isContacted: false});
     res.status(200).json(companies);
   } catch (error) {
     console.error('Error fetching companies:', error);
@@ -68,6 +69,8 @@ const upload = multer({ storage: storage });
 app.post('/upload', upload.single('file'), async (req, res) => {
   try {
     const file = req.file;
+    const { memMail } = req.body;
+
     if (!file) {
       console.error('No file uploaded');
       return res.status(400).send("No file uploaded.");
@@ -75,22 +78,19 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 
     // Read the file buffer
     const workbook = xlsx.read(file.buffer, { type: 'buffer' });
-
     const sheetName = workbook.SheetNames[0];
-   
-
     const worksheet = workbook.Sheets[sheetName];
-   
-
     const data = xlsx.utils.sheet_to_json(worksheet);
-    console.log(`Data from Excel file: ${JSON.stringify(data, null, 2)}`);
 
-    for (const row of data) {
+    // Add memMail to each row of the data
+    const modifiedData = data.map(row => ({ ...row, memMail }));
+
+    for (const row of modifiedData) {
       const company = new Company({
         name: row.name,
         hrname: row.hrname,
         Description: row.Description,
-        hrEmail: row.hrEmail, // Ensure this matches hrEmail from Excel
+        hremail: row.hremail,
         memMail: row.memMail,
         isContacted: row.isContacted
       });
@@ -102,6 +102,48 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   } catch (error) {
     console.error('Error uploading and processing file:', error);
     res.status(500).send("An error occurred while processing the file.");
+  }
+});
+
+// Submit Response Endpoint
+app.post('/submit-response', async (req, res) => {
+  try {
+    const {
+      name,
+      hrname,
+      hrNumber,
+      hremail,
+      response,
+      date,
+      message,
+      userId
+    } = req.body;
+
+    // Create a new Response document
+    const newResponse = new Response({
+      name,
+      hrname,
+      hrNumber,
+      hremail,
+      response,
+      date,
+      message,
+      userId
+    });
+
+    // Save the response to the database
+    await newResponse.save();
+
+    // Update the company's isContacted status
+    await Company.findOneAndUpdate(
+      { name: companyName },
+      { isContacted: true }
+    );
+
+    res.status(200).json({ message: "Response submitted successfully" });
+  } catch (error) {
+    console.error('Error submitting response:', error);
+    res.status(500).json({ error: 'Failed to submit response' });
   }
 });
 
