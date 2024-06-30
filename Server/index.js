@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 const xlsx = require("xlsx");
 const connectDB = require("./db");
+const NUser = require('./models/User');
 
 const app = express();
 const port = 4001;
@@ -19,8 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 // Import Models
 const User = require('./models/User');
 const Student = require('./models/Student');
-const Company = require('./models/Company');
-const Response = require('./models/Response');
+
 
 // Login Endpoint
 app.post('/login', async (req, res) => {
@@ -53,13 +53,16 @@ app.get('/students', async (req, res) => {
 // Companies Endpoint
 app.get('/companies', async (req, res) => {
   try {
-    const companies = await Company.find({isContacted: false});
+    const companies = await Company.find({ isContacted: false||0 });
     res.status(200).json(companies);
   } catch (error) {
     console.error('Error fetching companies:', error);
     res.status(500).json({ error: 'Failed to fetch companies' });
   }
 });
+
+
+const Company = require('./models/Company');
 
 // Configure Multer for file upload (using in-memory storage)
 const storage = multer.memoryStorage();
@@ -90,7 +93,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         name: row.name,
         hrname: row.hrname,
         Description: row.Description,
-        hremail: row.hremail,
+        hremail: row.hrEmail,
         memMail: row.memMail,
         isContacted: row.isContacted
       });
@@ -116,7 +119,8 @@ app.post('/submit-response', async (req, res) => {
       response,
       date,
       message,
-      userId
+      userId,
+      memMail
     } = req.body;
 
     // Create a new Response document
@@ -128,7 +132,8 @@ app.post('/submit-response', async (req, res) => {
       response,
       date,
       message,
-      userId
+      userId,
+      memMail
     });
 
     // Save the response to the database
@@ -136,7 +141,7 @@ app.post('/submit-response', async (req, res) => {
 
     // Update the company's isContacted status
     await Company.findOneAndUpdate(
-      { name: companyName },
+      { name: name }, // Assuming name is used to find the company
       { isContacted: true }
     );
 
@@ -146,6 +151,46 @@ app.post('/submit-response', async (req, res) => {
     res.status(500).json({ error: 'Failed to submit response' });
   }
 });
+
+// Signup Endpoint
+app.post('/signup', async (req, res) => {
+  const { email, password, isCoordi } = req.body;
+
+  try {
+    // Check if user already exists
+    let existingUser = await NUser.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
+    // Create new user
+    const newUser = new NUser({ email, password, isCoordi });
+
+    // Save user to database
+    await newUser.save();
+
+    res.status(201).json({ message: 'User created successfully', user: newUser });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+const Response = require('./models/Response');
+// GET endpoint to retrieve all responses
+
+app.get('/responses', async (req, res) => {
+  try {
+    const responses = await Response.find();
+    console.log('Fetched responses:', responses); // Log the fetched responses
+    res.status(200).json(responses);
+  } catch (error) {
+    console.error('Error fetching responses:', error);
+    res.status(500).json({ error: 'Failed to fetch responses' });
+  }
+});
+
 
 // Start the server
 app.listen(port, () => {

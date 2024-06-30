@@ -4,8 +4,7 @@ const studentSchema = new mongoose.Schema({
   name: String,
   post: String,
   Discipline: String,
-  email: String,
-  imageUrl: String,
+  email: String
 });
 
 module.exports = mongoose.model('Student', studentSchema);

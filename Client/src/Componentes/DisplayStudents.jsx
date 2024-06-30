@@ -1,8 +1,7 @@
-// DisplayStudents.jsx
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DisplayStudents.css';
+import { IoMdAddCircleOutline } from 'react-icons/io';
 
 export default function DisplayStudents({ users }) {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -21,28 +20,45 @@ export default function DisplayStudents({ users }) {
         navigate(`/assign`, { state: { memMail: email } });
     };
 
+    const handleAddClick = () => {
+        navigate('/signup');
+    };
+
+    const handleViewResponseClick = (email) => {
+        console.log('Navigating to display-response with memMail:', email); // Add log here
+        navigate(`/display-response`, { state: { memMail: email } });
+    };
+
     return (
         <div className="containerA">
             <div className="headerA">
-                <h2 className="headingA">Student Placement Team</h2>
-                <input
-                    type="text"
-                    placeholder="Search by name"
-                    className="searchInput"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                <div className='additem' onClick={handleAddClick} style={{ cursor: 'pointer' }}>
+                    <h1 style={{ fontSize: 25 }}> Add New User </h1>
+                    <IoMdAddCircleOutline style={{ width: 20, height: 20 }} />
+                </div>
+                <div>
+                    <h2 className="headingA">Student Placement Team</h2>
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        placeholder="Search by name"
+                        className="searchInput"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
             </div>
             <div className="list">
                 {filteredUsers.map((user, index) => (
-                    <StudentCard key={index} user={user} index={index} isLoaded={isLoaded} onAssignClick={handleAssignClick} />
+                    <StudentCard key={index} user={user} index={index} isLoaded={isLoaded} onAssignClick={handleAssignClick} onViewResponseClick={handleViewResponseClick} />
                 ))}
             </div>
         </div>
     );
 }
 
-function StudentCard({ user, index, isLoaded, onAssignClick }) {
+function StudentCard({ user, index, isLoaded, onAssignClick, onViewResponseClick }) {
     const [animationClass, setAnimationClass] = useState('');
 
     useEffect(() => {
@@ -62,6 +78,7 @@ function StudentCard({ user, index, isLoaded, onAssignClick }) {
                 <div className="item">{user.Discipline}</div>
             </div>
             <button className="assignButton" onClick={() => onAssignClick(user.email)}>Assign Companies</button>
+            <button className="assignButton" onClick={() => onViewResponseClick(user.email)}>View Companies Response</button>
         </div>
     );
 }

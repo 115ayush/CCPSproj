@@ -9,6 +9,8 @@ import Students from './Componentes/Students';
 import AssignCompanies from './Forms/AssignCompanies';
 import ResponseForm from "./Componentes/ResponseForm";
 import SplashScreen from './Componentes/SplashScreen';
+import SignUp from './Componentes/SignUp';
+import DisplayResponse from './Componentes/DisplayResponse';
 
 function App() {
     const [showSplash, setShowSplash] = useState(true);
@@ -45,6 +47,8 @@ function App() {
                 <Route path="/login" element={<LoginWrapper handleLogin={handleLogin} />} />
                 <Route path="/assign" element={<AssignCompanies/>} />
                 <Route path="/responseform" element={<ResponseForm/>} />
+                <Route path="/signup" element={<SignUp/>} />
+                <Route path="/display-response" element={<DisplayResponse />} />
             </Routes>
         </Router>
     );
@@ -60,7 +64,10 @@ function LoginWrapper({ handleLogin }) {
         }
     };
 
+   
+
     return <Login handleLogin={handleLoginAndNavigate} />;
 }
+
 
 export default App;

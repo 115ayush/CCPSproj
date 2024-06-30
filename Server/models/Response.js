@@ -8,7 +8,10 @@ const ResponseSchema = new mongoose.Schema({
     response: String,
     date: Date,
     message: String,
-    userId: mongoose.Schema.Types.ObjectId
+    userId: mongoose.Schema.Types.ObjectId,
+    memMail: String
 });
 
-module.exports = mongoose.model('Response', ResponseSchema);
+const Response = mongoose.model('Response', ResponseSchema, 'responses');
+
+module.exports = Response;

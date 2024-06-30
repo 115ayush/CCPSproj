@@ -8,8 +8,7 @@ const ResponseForm = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const company = location.state?.company;
-    const user=location.state?.user;
-   // console.log("from response",user);
+    const user = location.state?.user;
 
     const cnameRef = useRef();
     const hrnameRef = useRef();
@@ -19,7 +18,7 @@ const ResponseForm = () => {
     const dateRef = useRef();
     const messageRef = useRef();
 
-    const handleSubmit =async  (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const companyResponse = {
             name: cnameRef.current.value,
@@ -28,35 +27,18 @@ const ResponseForm = () => {
             hremail: hremailRef.current.value,
             response: responseRef.current.value,
             date: dateRef.current.value,
-            message: messageRef.current.value
+            message: messageRef.current.value,
+            userId: user._id, // Assuming user object has _id property
+            memMail: user.email // Include user.email in the response
         };
-       // console.log(response); // Log the response object
-        // Here you can add logic to send this data to a server or perform other actions
 
         try {
-          const response = await axios.post('http://localhost:4001/submit-response', 
-            companyResponse);
-        console.log(response.data.message);
-        navigate("/");
-          
-      } catch (error) {
-          console.error('There was an error!', error);
-      }
-
-
-
-
-
-
-
-        //
-
-
-
-
-
-
-       
+            const response = await axios.post('http://localhost:4001/submit-response', companyResponse);
+            console.log(response.data.message);
+            navigate("/");
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
     }
 
     return (
