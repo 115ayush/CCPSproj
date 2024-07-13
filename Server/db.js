@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const mongoURL = "mongodb+srv://bhoomig:UhiP7wV5g5XGf1nJ@cluster0.vykiygq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
+const url="mongodb://localhost:27017/ccpsdb"
 const connectDB = async () => {
   try {
-    await mongoose.connect(mongoURL, {
+    await mongoose.connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

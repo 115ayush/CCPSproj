@@ -1,0 +1,100 @@
+.lbox1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.lbox2 {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.lbox3 {
+  text-align: center;
+}
+
+h2 {
+  color: #1a73e8;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+p {
+  color: #5f6368;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.inputField {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: #1a73e8;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #1669d6;
+}
+
+.signupPrompt {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.signupLink {
+  color: #1a73e8;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.signupLink:hover {
+  color: #1669d6;
+  text-decoration: underline;
+}
+
+.checkbox-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #5f6368;
+}
+
+input[type="checkbox"] {
+  margin-right: 8px;
+  width: 18px;
+  height: 18px;
+}

@@ -2,13 +2,13 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Login.css';
+import './Signup.css';
 import axios from 'axios';
 
 export default function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isCoordi, setIsCoordi] = useState(false); // Default value for isCoordi
+    const [isCoordi, setIsCoordi] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -51,17 +51,17 @@ export default function SignUp() {
                                     required
                                 />
                             </div>
-                            <div>
+                            <div className="checkbox-container">
                                 <label>
                                     <input
                                         type='checkbox'
                                         checked={isCoordi}
                                         onChange={(e) => setIsCoordi(e.target.checked)}
                                     />
-                                    Are you a coordinator?
+                                    <span>Is he a coordinator?</span>
                                 </label>
                             </div>
-                            <button type='submit' className='btn'>Signup</button>
+                            <button type='submit' className='btn'>Add Member</button>
                         </form>
                     </div>
                     <div className='signupPrompt'>

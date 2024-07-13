@@ -1,8 +1,7 @@
 import React from "react";
 import Header from "../Componentes/Header";
 import Footer from "../Componentes/Footer";
-import Sidebar from "../Componentes/Sidebar";
-import "./Layout.css";
+
 
 
 const Layout = ({ children, user, handleLogout }) => {

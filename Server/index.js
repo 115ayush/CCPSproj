@@ -93,7 +93,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         name: row.name,
         hrname: row.hrname,
         Description: row.Description,
-        hremail: row.hrEmail,
+        hremail: row.hremail,
         memMail: row.memMail,
         isContacted: row.isContacted
       });
@@ -183,7 +183,7 @@ const Response = require('./models/Response');
 app.get('/responses', async (req, res) => {
   try {
     const responses = await Response.find();
-    console.log('Fetched responses:', responses); // Log the fetched responses
+    //console.log('Fetched responses:', responses); // Log the fetched responses
     res.status(200).json(responses);
   } catch (error) {
     console.error('Error fetching responses:', error);

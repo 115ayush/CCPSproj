@@ -1,7 +1,9 @@
+// Header.jsx
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import image from '../user.png';
-import './Header.css'; // Import the new CSS file
+import './Header.css';
 
 const Header = ({ user, handleLogout }) => {
   const [profileImage, setProfileImage] = useState(image);
@@ -22,7 +24,7 @@ const Header = ({ user, handleLogout }) => {
       <header className="header">
         <div className="header-logo">
           <Link to="/" className="logo-link">
-            <svg className="bi" width="40" height="32" role="img" aria-label="Bootstrap">
+            <svg className="bi" width="32" height="32" role="img" aria-label="Logo">
               <use xlinkHref="#bootstrap"></use>
             </svg>
           </Link>
@@ -30,31 +32,31 @@ const Header = ({ user, handleLogout }) => {
 
         <nav className="header-nav">
           <ul className="nav-list">
-            <li><Link to="/" className="nav-link">Home</Link></li>
-            <li><Link to="/features" className="nav-link">Features</Link></li>
-            <li><Link to="/faqs" className="nav-link">FAQs</Link></li>
-            <li><Link to="/about" className="nav-link">About</Link></li>
+            <li className="nav-item"><Link to="/" className="nav-link">Home</Link></li>
+            <li className="nav-item"><Link to="/features" className="nav-link">Features</Link></li>
+            <li className="nav-item"><Link to="/faqs" className="nav-link">FAQs</Link></li>
+            <li className="nav-item"><Link to="/about" className="nav-link">About</Link></li>
           </ul>
         </nav>
 
         <div className="header-profile">
           {user.exists === 1 ? (
             <div className="profile-dropdown">
-              <div className="profile-pic">
-                <img src={profileImage} alt="Profile" className="rounded-circle" width="40" height="40" />
-              </div>
-              <ul className="dropdown-menu">
+              <button className="profile-dropdown-toggle">
+                <img src={profileImage} alt="Profile" className="rounded-circle" width="32" height="32" />
+              </button>
+              <ul className="dropdown-menu profile-dropdown-menu">
                 <li>
-                  <label className="dropdown-item">
-                    {user.email}
-                  </label>
+                  <span className="dropdown-item user-email">{user.email}</span>
+                </li>
+                <li>
                   <label className="dropdown-item change-pic-label">
                     Change Profile Picture
                     <input type="file" onChange={handleImageChange} className="change-pic-input" />
                   </label>
                 </li>
                 <li>
-                  <div onClick={handleLogout} className="dropdown-item logout-link">Logout</div>
+                  <button onClick={handleLogout} className="dropdown-item logout-link">Logout</button>
                 </li>
               </ul>
             </div>

@@ -32,9 +32,9 @@ export default function DisplayStudents({ users }) {
     return (
         <div className="containerA">
             <div className="headerA">
-                <div className='additem' onClick={handleAddClick} style={{ cursor: 'pointer' }}>
-                    <h1 style={{ fontSize: 25 }}> Add New User </h1>
-                    <IoMdAddCircleOutline style={{ width: 20, height: 20 }} />
+                <div className='' onClick={handleAddClick} style={{ cursor: 'pointer' }}>
+                   
+                    <IoMdAddCircleOutline style={{ width: 40, height: 40 , color:'white',marginLeft:5}} />
                 </div>
                 <div>
                     <h2 className="headingA">Student Placement Team</h2>
